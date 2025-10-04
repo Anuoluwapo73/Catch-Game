@@ -14,7 +14,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 300);
+    }, 600);
 
     return () => clearInterval(interval);
   }, []);
