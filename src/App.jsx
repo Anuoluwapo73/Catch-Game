@@ -14,7 +14,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 600);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -66,7 +66,7 @@ const App = () => {
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
         alert(`You clicked the button!
-              Email sent successfully 🎉 Check your inbox!`);
+          Email sent successfully 🎉 Check your inbox!`);
       })
       .catch((err) => {
         console.error("FAILED...", err);
