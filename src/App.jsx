@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
+import welcome from "./assets/ChatGPT Image Oct 4, 2025, 10_00_52 PM.png"
 
 const App = () => {
   const [position, setPosition] = useState({ top: "50%", left: "50%" });
@@ -13,7 +14,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 250);
+    }, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -36,7 +37,7 @@ const App = () => {
     if (click) {
       const interval = setInterval(() => {
         document.body.style.background = getRandomColor();
-      }, 1000);
+      }, 500);
       return () => clearInterval(interval);
     }
   }, [click]);
@@ -64,7 +65,8 @@ const App = () => {
       )
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
-        alert("Email sent successfully 🎉 Check your inbox!");
+        alert(`You clicked the button!
+              Email sent successfully 🎉 Check your inbox!`);
       })
       .catch((err) => {
         console.error("FAILED...", err);
@@ -75,7 +77,13 @@ const App = () => {
   return (
     <>
       {/* Input form for player */}
-      <form className="input-div" id="cont" style={{ marginBottom: "20px" }} onSubmit={handleClick}>
+      <form
+        className="input-div"
+        id="cont"
+        style={{ marginBottom: "20px" }}
+        onSubmit={handleClick}
+      >
+        <img className="image" src={welcome} />
         <label>
           Name: &nbsp;
           <input
@@ -115,8 +123,8 @@ const App = () => {
               padding: "10px 20px",
               borderRadius: "10px",
               cursor: "pointer",
-              backgroundColor:"white",
-              padding:"3px 4px"
+              backgroundColor: "white",
+              padding: "3px 4px",
             }}
           >
             Catch Me
