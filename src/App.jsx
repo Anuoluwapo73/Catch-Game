@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
-import welcome from "./assets/ChatGPT Image Oct 4, 2025, 10_00_52 PM.png"
+import welcome from "./assets/ChatGPT Image Oct 4, 2025, 10_00_52 PM.png";
 
 const App = () => {
   const [position, setPosition] = useState({ top: "50%", left: "50%" });
@@ -14,7 +14,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 100);
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);
