@@ -22,7 +22,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 90) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 2000);
+    }, 200);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
@@ -83,7 +83,7 @@ const App = () => {
         alert("🎮 Game over! Thanks for playing!");
         setGameStarted(false); // optional: stop background & motion
         document.body.style.background = "white"; // reset background
-      }, 800); // small delay for a smooth effect
+      }, 1000); // small delay for a smooth effect
 
     } catch (err) {
       console.error("FAILED...", err);
@@ -140,16 +140,15 @@ const App = () => {
             top: position.top,
             left: position.left,
             transform: "translate(-50%, -50%)",
-            padding: "10px 15px",
+            padding: "5px 5px",
             borderRadius: "12px",
             cursor: "pointer",
             backgroundColor: isSending ? "#ccc" : "white",
             fontWeight: "bold",
-            border: "2px solid black",
-            transition: "0.3s ease",
+            border: "none",
           }}
         >
-          {isSending ? "Sending..." : "Catch Me 🎯"}
+          {isSending ? "Sending..." : "Catch Me"}
         </button>
       )}
     </>
