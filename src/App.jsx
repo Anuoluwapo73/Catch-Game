@@ -53,7 +53,7 @@ const App = () => {
         "service_lymcxzm", // your EmailJS service ID
         "template_x9y9828", // your EmailJS template ID
         {
-          from_name: "Anu",
+          from_name: playerName,
           from_email: playerEmail,
           reply_to: "anushoyode123@gmail.com",
           to_email: playerEmail, // send to player’s email
@@ -65,8 +65,7 @@ const App = () => {
       )
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
-        alert(`You clicked the button!
-          Email sent successfully 🎉 Check your inbox!`);
+        alert(`You clicked the button!  Email sent successfully 🎉 Check your inbox!`);
       })
       .catch((err) => {
         console.error("FAILED...", err);
@@ -125,10 +124,11 @@ const App = () => {
               cursor: "pointer",
               backgroundColor: "white",
               padding: "3px 4px",
+              border:"none"
             }}
           >
             Catch Me
-          </button>
+          </button> 
         </div>
       )}
     </>
