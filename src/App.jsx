@@ -21,7 +21,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 190) + "%";
       setPosition({ top, left });
-    }, 600);
+    }, 500);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
