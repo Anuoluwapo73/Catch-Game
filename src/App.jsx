@@ -61,7 +61,7 @@ const App = () => {
 
     setIsSending(true);
     
-    const randomNumber = Math.floor(Math.random() * 51) + 70;
+    const randomNumber = Math.floor(Math.random() * 51) + 90;
 
     try {
       const response = await emailjs.send(
