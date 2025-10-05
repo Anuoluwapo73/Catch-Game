@@ -4,90 +4,105 @@ import welcome from "./assets/ChatGPT Image Oct 4, 2025, 10_00_52 PM.png";
 
 const App = () => {
   const [position, setPosition] = useState({ top: "50%", left: "50%" });
-  const [click, setClick] = useState(false);
-
+  const [gameStarted, setGameStarted] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [playerEmail, setPlayerEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
+  // ✅ Initialize EmailJS once when the app loads
   useEffect(() => {
+    emailjs.init("6Ttttcc58uG6moWnR"); // <-- your public key here
+  }, []);
+
+  // Move the button randomly every 2 seconds
+  useEffect(() => {
+    if (!gameStarted) return;
     const interval = setInterval(() => {
-      const top = Math.floor(Math.random() * 190) + "%";
+      const top = Math.floor(Math.random() * 90) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
     }, 2000);
-
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStarted]);
 
-  function getRandomColor() {
+  // Change background color randomly
+  useEffect(() => {
+    if (!gameStarted) return;
+    const interval = setInterval(() => {
+      document.body.style.background = getRandomColor();
+    }, 200);
+    return () => clearInterval(interval);
+  }, [gameStarted]);
+
+  // Random color generator
+  const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
     let color = "#";
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setClick(!click);
-    document.getElementById("cont").style.display = "none";
   };
 
-  const randomNumber = Math.floor(Math.random() * 200);
-  useEffect(() => {
-    if (click) {
-      const interval = setInterval(() => {
-        document.body.style.background = getRandomColor();
-      }, 200);
-      return () => clearInterval(interval);
-    }
-  }, [click]);
-
-  const sendEmail = () => {
+  // Start game
+  const handleStart = (e) => {
+    e.preventDefault();
     if (!playerName || !playerEmail) {
       alert("Please enter your name and email first!");
       return;
     }
+    setGameStarted(true);
+    document.getElementById("cont").style.display = "none";
+  };
 
-    emailjs
-      .send(
-        "service_lymcxzm", // your EmailJS service ID
-        "template_x9y9828", // your EmailJS template ID
+  // ✅ Send email instantly and reliably
+  const sendEmail = async () => {
+    if (isSending || buttonClicked) return; // prevent double clicks
+
+    setIsSending(true);
+    setButtonClicked(true);
+    const randomNumber = Math.floor(Math.random() * 51) + 60;
+
+    try {
+      const response = await emailjs.send(
+        "service_lymcxzm", // your service ID
+        "template_x9y9828", // your template ID
         {
-          
-          // from_name: playerName,
+          to_email: playerEmail,
+          name: playerName,
+          email: "anushoyode123@gmail.com",
+          message: `Hey ${playerName}, you caught the button 🎯🔥! You just won ${randomNumber}!`,
+        }
+      );
+      console.log("SUCCESS!", response.status, response.text);
+      alert(`🎉 You caught the button! Check your email inbox.`);
+      
+      // 🎮 Second alert — game over
+      setTimeout(() => {
+        alert("🎮 Game over! Thanks for playing!");
+        setGameStarted(false); // optional: stop background & motion
+        document.body.style.background = "white"; // reset background
+      }, 800); // small delay for a smooth effect
 
-          to_email: playerEmail, // send to player’s email
-          name: playerName, // player’s name
-          email: "anushoyode123@gmail.com", // reply-to address
-          message: `Hey ${playerName}, you caught the button 🎯🔥! 
-          Your just won ${randomNumber}`,
-        },
-        "6Ttttcc58uG6moWnR" // your EmailJS public key
-      )
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
-        alert(
-          `You clicked the button!  Email sent successfully 🎉 Check your inbox!`
-        );
-      })
-      .catch((err) => {
-        console.error("FAILED...", err);
-        alert("Email failed to send 😢");
-      });
+    } catch (err) {
+      console.error("FAILED...", err);
+      alert("Email failed to send 😢. Try again!");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
     <>
-      {/* Input form for player */}
+      {/* Input form */}
       <form
         className="input-div"
         id="cont"
         style={{ marginBottom: "20px" }}
-        onSubmit={handleClick}
+        onSubmit={handleStart}
       >
-        <img className="image" src={welcome} />
+        <img className="image" src={welcome} alt="Welcome" />
         <label>
           Name: &nbsp;
           <input
@@ -111,30 +126,31 @@ const App = () => {
             onChange={(e) => setPlayerEmail(e.target.value)}
           />
         </label>
+
         <button type="submit">Start Game</button>
       </form>
 
-      {click && (
-        <div className="under-input">
-          <button
-            onClick={sendEmail}
-            style={{
-              position: "absolute",
-              top: position.top,
-              left: position.left,
-              transform: "translate(-50%, -50%)",
-              //   transition: "all 0.5s ease",
-              padding: "10px 20px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              backgroundColor: "white",
-              padding: "3px 4px",
-              border: "none",
-            }}
-          >
-            Catch Me
-          </button>
-        </div>
+      {/* Game button */}
+      {gameStarted && (
+        <button
+          onClick={sendEmail}
+          disabled={isSending || buttonClicked}
+          style={{
+            position: "absolute",
+            top: position.top,
+            left: position.left,
+            transform: "translate(-50%, -50%)",
+            padding: "10px 15px",
+            borderRadius: "12px",
+            cursor: "pointer",
+            backgroundColor: isSending ? "#ccc" : "white",
+            fontWeight: "bold",
+            border: "2px solid black",
+            transition: "0.3s ease",
+          }}
+        >
+          {isSending ? "Sending..." : "Catch Me 🎯"}
+        </button>
       )}
     </>
   );
