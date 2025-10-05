@@ -79,7 +79,7 @@ const App = () => {
           to_email: playerEmail,
           name: playerName,
           email: "anushoyode123@gmail.com",
-          message: `Hey ${playerName}, you caught the button 🎯🔥! You just won ${randomNumber}!`,
+          message: `From Shoyode Anu:  Hey ${playerName}, you caught the button 🎯🔥! You just won ${randomNumber}!`,
         }
       );
       // ✅ Mark this email as used
