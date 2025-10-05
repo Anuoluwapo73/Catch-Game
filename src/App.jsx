@@ -21,7 +21,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 190) + "%";
       setPosition({ top, left });
-    }, 300);
+    }, 700);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
@@ -30,7 +30,7 @@ const App = () => {
     if (!gameStarted) return;
     const interval = setInterval(() => {
       document.body.style.background = getRandomColor();
-    }, 200);
+    }, 500);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
