@@ -19,10 +19,10 @@ const App = () => {
   useEffect(() => {
     if (!gameStarted) return;
     const interval = setInterval(() => {
-      const top = Math.floor(Math.random() * 90) + "%";
-      const left = Math.floor(Math.random() * 90) + "%";
+      const top = Math.floor(Math.random() * 190) + "%";
+      const left = Math.floor(Math.random() * 190) + "%";
       setPosition({ top, left });
-    }, 100);
+    }, 200);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
