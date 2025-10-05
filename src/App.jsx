@@ -14,7 +14,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -33,11 +33,13 @@ const App = () => {
     setClick(!click);
     document.getElementById("cont").style.display = "none";
   };
+
+  const randomNumber = Math.floor(Math.random() * 200);
   useEffect(() => {
     if (click) {
       const interval = setInterval(() => {
         document.body.style.background = getRandomColor();
-      }, 500);
+      }, 200);
       return () => clearInterval(interval);
     }
   }, [click]);
@@ -53,19 +55,22 @@ const App = () => {
         "service_lymcxzm", // your EmailJS service ID
         "template_x9y9828", // your EmailJS template ID
         {
-          from_name: playerName,
-          from_email: playerEmail,
-          reply_to: "anushoyode123@gmail.com",
+          
+          // from_name: playerName,
+
           to_email: playerEmail, // send to player’s email
           name: playerName, // player’s name
           email: "anushoyode123@gmail.com", // reply-to address
-          message: `Hey ${playerName}, you caught the button 🎯🔥!`,
+          message: `Hey ${playerName}, you caught the button 🎯🔥! 
+          Your just won ${randomNumber}`,
         },
         "6Ttttcc58uG6moWnR" // your EmailJS public key
       )
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
-        alert(`You clicked the button!  Email sent successfully 🎉 Check your inbox!`);
+        alert(
+          `You clicked the button!  Email sent successfully 🎉 Check your inbox!`
+        );
       })
       .catch((err) => {
         console.error("FAILED...", err);
@@ -124,11 +129,11 @@ const App = () => {
               cursor: "pointer",
               backgroundColor: "white",
               padding: "3px 4px",
-              border:"none"
+              border: "none",
             }}
           >
             Catch Me
-          </button> 
+          </button>
         </div>
       )}
     </>
