@@ -22,7 +22,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 90) + "%";
       const left = Math.floor(Math.random() * 90) + "%";
       setPosition({ top, left });
-    }, 200);
+    }, 100);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
