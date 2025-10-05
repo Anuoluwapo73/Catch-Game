@@ -8,7 +8,6 @@ const App = () => {
   const [playerName, setPlayerName] = useState("");
   const [playerEmail, setPlayerEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
-  const [buttonClicked, setButtonClicked] = useState(false);
 
   // ✅ Initialize EmailJS once when the app loads
   useEffect(() => {
@@ -22,7 +21,7 @@ const App = () => {
       const top = Math.floor(Math.random() * 190) + "%";
       const left = Math.floor(Math.random() * 190) + "%";
       setPosition({ top, left });
-    }, 200);
+    }, 2000);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
@@ -58,10 +57,10 @@ const App = () => {
 
   // ✅ Send email instantly and reliably
   const sendEmail = async () => {
-    if (isSending || buttonClicked) return; // prevent double clicks
+    if (isSending) return; // prevent double clicks
 
     setIsSending(true);
-    setButtonClicked(true);
+    
     const randomNumber = Math.floor(Math.random() * 51) + 60;
 
     try {
@@ -77,14 +76,13 @@ const App = () => {
       );
       console.log("SUCCESS!", response.status, response.text);
       alert(`🎉 You caught the button! Check your email inbox.`);
-      
+
       // 🎮 Second alert — game over
       setTimeout(() => {
         alert("🎮 Game over! Thanks for playing!");
         setGameStarted(false); // optional: stop background & motion
         document.body.style.background = "white"; // reset background
       }, 1000); // small delay for a smooth effect
-
     } catch (err) {
       console.error("FAILED...", err);
       alert("Email failed to send 😢. Try again!");
@@ -134,7 +132,7 @@ const App = () => {
       {gameStarted && (
         <button
           onClick={sendEmail}
-          disabled={isSending || buttonClicked}
+          disabled={isSending}
           style={{
             position: "absolute",
             top: position.top,
