@@ -30,7 +30,7 @@ const App = () => {
     if (!gameStarted) return;
     const interval = setInterval(() => {
       document.body.style.background = getRandomColor();
-    }, 500);
+    }, 300);
     return () => clearInterval(interval);
   }, [gameStarted]);
 
