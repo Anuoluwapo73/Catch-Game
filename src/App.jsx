@@ -76,10 +76,12 @@ const App = () => {
         "service_lymcxzm", // your service ID
         "template_x9y9828", // your template ID
         {
+          details: `You just won ${randomNumber}!`,
           to_email: playerEmail,
-          name: playerName,
+          from_name: playerName,
+          from_email:playerEmail,
           email: "anushoyode123@gmail.com",
-          message: `From Shoyode Anu:  Hey ${playerName}, you caught the button 🎯🔥! You just won ${randomNumber}!`,
+          message: `From Shoyode Anu:  Hey ${playerName}, you caught the button 🎯🔥!`,
         }
       );
       // // ✅ Mark this email as used
