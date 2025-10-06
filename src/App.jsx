@@ -79,7 +79,6 @@ const App = () => {
           details: `You just won ${randomNumber}!`,
           to_email: playerEmail,
           from_name: playerName,
-          from_email:playerEmail,
           email: "anushoyode123@gmail.com",
           message: `From Shoyode Anu:  Hey ${playerName}, you caught the button 🎯🔥!`,
         }
