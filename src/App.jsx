@@ -51,14 +51,14 @@ const App = () => {
       alert("Please enter your name and email first!");
       return;
     }
-    // // 🚫 Check if this email has already played before
-    // const alreadyPlayed = localStorage.getItem(`played_${playerEmail}`);
-    // if (alreadyPlayed) {
-    //   alert(
-    //     "🚫 This email has already played the game once. You cannot play again."
-    //   );
-    //   return;
-    // }
+    // 🚫 Check if this email has already played before
+    const alreadyPlayed = localStorage.getItem(`played_${playerEmail}`);
+    if (alreadyPlayed) {
+      alert(
+        "🚫 This email has already played the game once. You cannot play again."
+      );
+      return;
+    }
     setGameStarted(true);
     document.getElementById("cont").style.display = "none";
   };
@@ -83,8 +83,8 @@ const App = () => {
           message: `From Shoyode Anu:  Hey ${playerName}, you caught the button 🎯🔥!`,
         }
       );
-      // // ✅ Mark this email as used
-      // localStorage.setItem(`played_${playerEmail}`, "true");
+      // ✅ Mark this email as used
+      localStorage.setItem(`played_${playerEmail}`, "true");
 
       alert(`🎉 You caught the button! Check your email inbox.`);
       console.log("SUCCESS!", response.status, response.text);
